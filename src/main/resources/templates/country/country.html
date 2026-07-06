@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta name='author' content='Amin Naeini'>
+<meta name='description' content='----'>
+<meta name='keywords' content='----'>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<link rel='icon' type='image/png' href=''>
+<title>Country</title>
+<style>
+* {
+	text-align: center;
+}
+
+ul li {
+	text-align: left;
+}
+
+td:first-child {
+	text-align: left;
+	font-weight: bold;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.countryname {
+	padding: 5px;
+	font-size: 1.5rem;
+	background-color: white;
+}
+
+img {
+	border: 1px solid gray;
+}
+</style>
+</head>
+<body>
+	<!-- 
+countryInfoAllData (Map<String, Object>)
+│
+├── data (Map<String, Object>)
+│   │
+│   ├── objects (List)
+│   │   │
+│   │   ├── [0] (Map<String, Object>)
+│   │   │   │
+│   │   │   ├── names (Map)
+│   │   │   │   ├── common (String)
+│   │   │   │   ├── official (String)
+│   │   │   │   ├── native (Map)
+│   │   │   │   ├── translations (Map)
+│   │   │   │   └── alternates (List)
+│   │   │   │
+│   │   │   ├── codes (Map)
+│   │   │   │   ├── alpha_2
+│   │   │   │   ├── alpha_3
+│   │   │   │   ├── ccn3
+│   │   │   │   └── ...
+│   │   │   │
+│   │   │   ├── capitals (List)
+│   │   │   │   └── [0] (Map)
+│   │   │   │       ├── name
+│   │   │   │       ├── coordinates (Map)
+│   │   │   │       └── attributes (Map)
+│   │   │   │
+│   │   │   ├── flag (Map)
+│   │   │   │   ├── emoji
+│   │   │   │   ├── url_png
+│   │   │   │   ├── url_svg
+│   │   │   │   └── colors (Map)
+│   │   │   │
+│   │   │   ├── region (String)
+│   │   │   ├── subregion (String)
+│   │   │   ├── population (Integer/Long)
+│   │   │   ├── languages (List)
+│   │   │   ├── currencies (List)
+│   │   │   ├── borders (List)
+│   │   │   ├── coordinates (Map)
+│   │   │   ├── memberships (Map)
+│   │   │   ├── links (Map)
+│   │   │   ├── ...
+│   │   │
+│   │   ├── [1]
+│   │   ├── [2]
+│   │   └── ...
+│   │
+│   └── meta (Map)
+│       ├── total
+│       ├── count
+│       ├── limit
+│       ├── offset
+│       └── ...
+│
+└── (کلید دیگری در ریشه وجود ندارد)
+ -->
+	<h1>Country Project</h1>
+
+	<div class="container" th:if ="${#maps.isEmpty(countryinfo)}"}>
+		<div>Country not found</div>
+		</div>
+		<div class="container" th:if ="${!#maps.isEmpty(countryinfo)}">
+
+			<div class="countryname">
+				<img width="400" th:src="${countryinfo['flag']['url_png']}"
+					alt="flag" />
+				<table>
+					<tr>
+						<td>Name:</td>
+						<td th:text="${countryinfo['names']['common']}"></td>
+					</tr>
+
+					<tr>
+						<td>Official Name:</td>
+						<td th:text="${countryinfo['names']['official']}"></td>
+					</tr>
+
+					<tr th:each="nativename : ${countryinfo['names']['native']}">
+						<td>Native Name:</td>
+						<td th:text="${nativename.value['common']}"></td>
+					</tr>
+
+					<tr th:each="nativename : ${countryinfo['names']['native']}">
+						<td>Native Official Name:</td>
+						<td th:text="${nativename.value['official']}"></td>
+					</tr>
+
+					<tr>
+						<td>Alpha2:</td>
+						<td th:text="${countryinfo['codes']['alpha_2']}"></td>
+					</tr>
+
+					<tr>
+						<td>Alpha3:</td>
+						<td th:text="${countryinfo['codes']['alpha_3']}"></td>
+					</tr>
+
+					<tr>
+						<td>Capital:</td>
+						<td th:text="${countryinfo['capitals'][0]['name']}"></td>
+					</tr>
+
+					<th:block th:each="lang : ${countryinfo['languages']}">
+						<tr>
+							<td>Language Name:</td>
+							<td th:text="${lang['name']}"></td>
+						</tr>
+						<tr>
+							<td>Native Language Name:</td>
+							<td th:text="${lang['native_name']}"></td>
+						</tr>
+					</th:block>
+					<tr>
+						<td>Population:</td>
+						<td
+							th:text="${#numbers.formatInteger(countryinfo['population'], 3, 'COMMA')}"></td>
+					</tr>
+				</table>
+			</div>
+
+
+
+
+			<ul>
+
+				<li th:each="link : ${countryinfo['links']}"><a
+					th:href="${link.value}" th:text="${link.key}">></a></li>
+
+			</ul>
+
+
+
+
+
+
+			<!-- <div th:text="${countryinfo}"></div> -->
+
+
+		</div>
+		
+</body>
+</html>
