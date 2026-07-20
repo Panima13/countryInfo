@@ -1,0 +1,40 @@
+
+
+	<div class="menubar" th:fragment="menubar">
+		<style>
+.menubar a {
+	font-size: 1.3rem;
+	display: inline-block;
+	width: 100px;
+	padding: 10px;
+	background-color: rgb(200, 200, 250);
+	text-decoration: none;
+}
+
+.menubar a:hover {
+	font-size: 1.3rem;
+	background-color: rgb(200, 150, 250);
+	}
+	
+
+.menubar {
+	padding: 10px;
+	background-color: gray;
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.8rem;
+	background-color: gray;
+}
+</style>
+
+		<div class="menu" th:each="menuitem : ${menus}">
+			<a th:href="${menuitem.URL}" th:text="${menuitem.text}"></a>
+
+		</div>
+
+
+	</div>
+

@@ -11,6 +11,7 @@
 <style>
 * {
 	text-align: center;
+	 box-sizing: border-box;
 }
 
 ul li {
@@ -44,11 +45,22 @@ body {
 .countryname {
 	padding: 5px;
 	font-size: 1.5rem;
-	background-color: white;
+	
 }
 
 img {
 	border: 1px solid gray;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;	
+	background-color: lightgray;
+	width: 100%;
+	min-height:100%;	
+	padding:10px;
 }
 </style>
 </head>
@@ -111,89 +123,17 @@ countryInfoAllData (Map<String, Object>)
 │
 └── (کلید دیگری در ریشه وجود ندارد)
  -->
-	<h1>Country Project</h1>
 
-	<div class="container" th:if ="${#maps.isEmpty(countryinfo)}"}>
-		<div>Country not found</div>
-		</div>
-		<div class="container" th:if ="${!#maps.isEmpty(countryinfo)}">
+	<div th:replace="~{country/fragments/menubar::menubar}"></div>
 
-			<div class="countryname">
-				<img width="400" th:src="${countryinfo['flag']['url_png']}"
-					alt="flag" />
-				<table>
-					<tr>
-						<td>Name:</td>
-						<td th:text="${countryinfo['names']['common']}"></td>
-					</tr>
+	<div class="body" th:switch="${page}">
+		<div  th:case="'home'" th:insert="~{country/home :: body}"></div>
+		<div  th:case="'about'"
+			th:insert="~{country/about :: body}"></div>
+		<div  th:case="'search'"
+			th:insert="~{country/search :: body}"></div>
 
-					<tr>
-						<td>Official Name:</td>
-						<td th:text="${countryinfo['names']['official']}"></td>
-					</tr>
+	</div>
 
-					<tr th:each="nativename : ${countryinfo['names']['native']}">
-						<td>Native Name:</td>
-						<td th:text="${nativename.value['common']}"></td>
-					</tr>
-
-					<tr th:each="nativename : ${countryinfo['names']['native']}">
-						<td>Native Official Name:</td>
-						<td th:text="${nativename.value['official']}"></td>
-					</tr>
-
-					<tr>
-						<td>Alpha2:</td>
-						<td th:text="${countryinfo['codes']['alpha_2']}"></td>
-					</tr>
-
-					<tr>
-						<td>Alpha3:</td>
-						<td th:text="${countryinfo['codes']['alpha_3']}"></td>
-					</tr>
-
-					<tr>
-						<td>Capital:</td>
-						<td th:text="${countryinfo['capitals'][0]['name']}"></td>
-					</tr>
-
-					<th:block th:each="lang : ${countryinfo['languages']}">
-						<tr>
-							<td>Language Name:</td>
-							<td th:text="${lang['name']}"></td>
-						</tr>
-						<tr>
-							<td>Native Language Name:</td>
-							<td th:text="${lang['native_name']}"></td>
-						</tr>
-					</th:block>
-					<tr>
-						<td>Population:</td>
-						<td
-							th:text="${#numbers.formatInteger(countryinfo['population'], 3, 'COMMA')}"></td>
-					</tr>
-				</table>
-			</div>
-
-
-
-
-			<ul>
-
-				<li th:each="link : ${countryinfo['links']}"><a
-					th:href="${link.value}" th:text="${link.key}">></a></li>
-
-			</ul>
-
-
-
-
-
-
-			<!-- <div th:text="${countryinfo}"></div> -->
-
-
-		</div>
-		
 </body>
 </html>

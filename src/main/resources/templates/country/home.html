@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{country/country :: body}">
+
+<div th:fragment="body">
+<style>
+.home{
+font-size:1.5rem;
+padding :100px;
+}
+
+</style>
+<div class="home">
+<p>
+	Welcome to the Country Search Website.
+	This website is designed to help
+	you explore and search for countries around the world. You can find
+	information about different countries, including their names, capitals,
+	regions, populations, flags, and other useful details. To search for a
+	country, go to the <a href="/search">Search Countries</a> page and
+	enter the name of the country you want to explore. Enjoy discovering
+	information about countries from all around the world!
+</p>
+</div>
+
+</div>
+
+</html>
