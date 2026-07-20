@@ -13,4 +13,5 @@ The backend is implemented using **Spring Boot and Java**, where HTTP requests a
 The goal of this project is to demonstrate how a Spring Boot application can communicate with external REST APIs, process JSON data, and build a dynamic web interface for users.
 
 ![Country Search Screenshot](screenshot1.png)
+![Country Search Screenshot](screenshot2.png)
 
