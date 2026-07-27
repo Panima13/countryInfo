@@ -8,14 +8,18 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class CountryService {
 
 	private final HttpClient client = HttpClient.newHttpClient();
 
+	@Cacheable("countries")
 	public String getCountry(String countryName) throws IOException, InterruptedException {
+		 System.out.println("FROM API " + countryName);
 		if (countryName == null || countryName.isBlank())
 			return "";
 		String encodedCountry = URLEncoder.encode(countryName, StandardCharsets.UTF_8);
